@@ -1,4 +1,4 @@
-What is PUBG?
+# What is PUBG?
 PUBG Stands for PlayerUnknown’s Battlegrounds. Basically the game is all about battle and the battle royal means all against all. This is similar to a hunger game where you start with nothing and with time you will scavenge and collect weapons and equipment.The game is ultimately a battle to the last player standing, with 100 players on an 8 x 8 km island. Mode of the games are: Solo, Duo or Squad.
 To do the analysis on the data we will download the data from Kaggle and here is the source. Let’s have a look at the Data description which was taken from the Kaggle itself.
 Feature descriptions (From Kaggle)
