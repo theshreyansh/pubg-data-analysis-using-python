@@ -1,8 +1,8 @@
-What is PUBG?
+# What is PUBG?
 PUBG Stands for PlayerUnknown’s Battlegrounds. Basically the game is all about battle and the battle royal means all against all. This is similar to a hunger game where you start with nothing and with time you will scavenge and collect weapons and equipment.The game is ultimately a battle to the last player standing, with 100 players on an 8 x 8 km island. Mode of the games are: Solo, Duo or Squad.
-To do the analysis on the data we will download the data from Kaggle and here is the source. Let’s have a look at the Data description which was taken from the Kaggle itself.
+<p>To do the analysis on the data we will download the data from Kaggle and here is the source. Let’s have a look at the Data description which was taken from the Kaggle itself.
 Feature descriptions (From Kaggle)
-1.	* DBNOs – Number of enemy players knocked.
+<p>1.	* DBNOs – Number of enemy players knocked.
 2.	* assists – Number of enemy players this player damaged that were killed by teammates.
 3.	* boosts – Number of boost items used.
 4.	* damageDealt – Total damage dealt. Note: Self inflicted damage is subtracted.
@@ -33,6 +33,7 @@ Feature descriptions (From Kaggle)
 29.	* winPlacePerc – The target of prediction. This is a percentile winning placement, where 1 corresponds to 1st place, and 0 corresponds to last place in the match. It is calculated off of maxPlace, not numGroups, so it is possible to have missing chunks in a match.
 So I hope we got a brief about what is the game all about and the dataset as well what we are going to use.
 So let’s divide the whole project into a few parts:
+<p>
 1.	Load the dataset
 2.	Import the libraries
 3.	Clean the data
@@ -41,6 +42,8 @@ So let’s divide the whole project into a few parts:
 6.	Build a Linear regression model 
 7.	Predict the model
 8.	Visualize actual and predicted value using matplotlib and seaborn library
+
+<p>
 1.	Load the dataset: Load the dataset from dropbox.  We already loaded the dataset into dropbox from Kaggle because it is easy to fetch the dataset from dropbox.
 https://www.dropbox.com/s/kqu004pn2xpg0tr/train_V2.csv
 To fetch the dataset from dropbox we need to use a command that is !wget and then the link like
@@ -62,7 +65,7 @@ import sys
 from sklearn import metrics
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression,LinearRegression
-3. Use memory saving function:
+<p>3. Use memory saving function:
  As the amount of dataset is too big, we need to use a memory saving function which will help us to reduce the memory usage.
 The function also is taken from Kaggle itself:
 # Memory saving function credit to https://www.kaggle.com/gemartin/load-data-reduce-memory-usage
@@ -102,32 +105,30 @@ def reduce_mem_usage(df):
     print('Memory usage of dataframe is {:.2f} MB --> {:.2f} MB (Decreased by {:.1f}%)'.format(
         start_mem, end_mem, 100 * (start_mem - end_mem) / start_mem))
     return df
-4. Store the training data and use memory saving function to reduce memory usage:
+<p>4. Store the training data and use memory saving function to reduce memory usage:
 train_data=pd.read_csv("train_V2.csv")
 train_data= reduce_mem_usage(train_data)
 train_data → This is the variable which holds the training part of the dataset
  Output:
  Memory usage of dataframe is 983.90 MB --> 339.28 MB (Decreased by 65.5%) 
-5. Store the test data and use memory saving function to reduce memory usage:
+<p>5. Store the test data and use memory saving function to reduce memory usage:
 test_data=pd.read_csv("/content/test_V2.csv")
 test_data= reduce_mem_usage(test_data)
 test_data → This is the variable which holds the testing part of the dataset
 Output:
  Memory usage of dataframe is 413.18 MB --> 140.19 MB (Decreased by 66.1%)
-6. Now we will check the dataset description as well as the shape of the dataset
+<p>6. Now we will check the dataset description as well as the shape of the dataset
 •	The shape of training dataset:
 o	Input: train_data.shape
 o	Output: (4446966, 29)–> 4446966 rows and 29 columns
 •	The shape of the testing dataset:
 o	Input: test_data.shape
 o	output: (1934174, 28)–> 4446966 rows and 28 columns
-7. Print the training data: Print top 5 rows of data
-train_data.head()
- 
+<p>7. Print the training data: Print top 5 rows of data
+train_data.head() 
 head() method returns the first five rows of the dataset
-8. Print the testing data: Print top 5 rows of data
-test_data.head()
- 
+<p>8. Print the testing data: Print top 5 rows of data
+test_data.head() 
 Data cleaning:
 1.	Checking the null values in the dataset: train_data.isna().any()
 Output:
@@ -161,13 +162,11 @@ weaponsAcquired    False
 winPoints          False
 winPlacePerc        True
 dtype: bool
-
  
 So from the output, we can conclude that no column has null values except winPlaceperc.
 Get the percentage for each column for null values:
 null_columns=pd.DataFrame({'Columns':train_data.isna().sum().index,'No. Null values':train_data.isna().sum().values,'Percentage':train_data.isna().sum().values/train_data.shape[0]})
-Output:
-   
+Output: 
 Exploratory Data Analysis:
 Get the Statistical description of the dataset:
 train_data.describe()
@@ -195,7 +194,6 @@ Visualize the data using Python’s library:
 fig, ax = plt.subplots(1, 2, figsize=(12, 4))
 train_data.groupby('matchId')['matchType'].first().value_counts().plot.bar()
 Output: 
- 
 We know PUBG has three types of the match but in the dataset, we got more right?
 Because PUBG has a criteria called fpp and tpp. So basically they are used to fixed the visualization like: zoom in or Zoom out.To solve this problem we need to map our data for specific three types of match:
 Map the match function:
@@ -279,4 +277,3 @@ plt.grid(which='minor', linestyle=':', linewidth='0.5', color='black')
 plt.show()
  
 This brings us to the end of this article. If you are interested in data science and machine learning, click the banner below to get access to these free course
-
